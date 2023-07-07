@@ -2,7 +2,7 @@
 
 namespace Salim\FilterResolver;
 
-use Stringable;
+use InvalidArgumentException;
 
 class FilterBuilder
 {
@@ -27,10 +27,11 @@ class FilterBuilder
     public function __call(string $condition, array $arguments): self
     {
         if (!in_array($condition, $this->passthru)) {
-            throw new \InvalidArgumentException("Invalid condition: {$condition}");
+            throw new InvalidArgumentException("Invalid condition: {$condition}");
         }
 
         $this->add($condition, ...$arguments);
+
         return $this;
     }
 
